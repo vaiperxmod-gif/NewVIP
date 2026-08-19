@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VaiperxPANEL</title>
+
+  <!-- กำหนดไอคอนเมื่อเพิ่มลงหน้าจอหลัก (iOS / Android Web App Icon) -->
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png">
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png">
+  <meta name="apple-mobile-web-app-title" content="VaiperxPANEL">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +21,7 @@
     }
 
     body {
-      background-color: #080808;
+      background-color: #050505;
       color: #ffffff;
       display: flex;
       justify-content: center;
@@ -22,14 +30,31 @@
       padding: 20px;
     }
 
+    /* Outer Glow Container */
     .panel-container {
       width: 100%;
       max-width: 380px;
-      background: radial-gradient(circle at center, #1c0505 0%, #090909 100%);
-      border-radius: 24px;
-      padding: 20px 16px;
-      border: 1px solid #2a0a0a;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
+      background: rgba(15, 8, 12, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 22px 18px;
+      border: 1px solid rgba(255, 42, 42, 0.25);
+      box-shadow: 0 0 35px rgba(255, 0, 0, 0.15), inset 0 0 15px rgba(255, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Neon Top Aura Line */
+    .panel-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 70%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
+      box-shadow: 0 0 12px #ff2a2a;
     }
 
     /* Header Section */
@@ -37,7 +62,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .title-group {
@@ -48,27 +73,30 @@
     .title-main {
       font-size: 24px;
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: #ffffff;
       font-style: italic;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
     .title-sub {
       font-size: 15px;
       font-weight: 800;
       color: #ff2a2a;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       margin-top: -4px;
       font-style: italic;
+      text-shadow: 0 0 8px rgba(255, 42, 42, 0.6);
     }
 
     .menu-btn {
-      background: #141414;
-      border: 1px solid #282828;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
-      padding: 6px 10px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 10px;
       cursor: pointer;
+      backdrop-filter: blur(4px);
     }
 
     /* Logo Section */
@@ -78,44 +106,45 @@
     }
 
     .logo-img {
-      width: 130px;
+      width: 125px;
       height: auto;
-      filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
+      filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6));
     }
 
     .logo-text {
-      color: #ff2a2a;
-      font-weight: 800;
-      letter-spacing: 2px;
+      color: #ff3b3b;
+      font-weight: 900;
+      letter-spacing: 3px;
       font-size: 16px;
-      margin-top: 5px;
-      text-shadow: 0 0 10px rgba(255, 42, 42, 0.6);
+      margin-top: 6px;
+      text-shadow: 0 0 12px rgba(255, 59, 59, 0.8);
     }
 
     /* Section Headers */
     .section-title {
       font-size: 11px;
-      font-weight: 700;
-      color: #888888;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      font-weight: 800;
+      color: #777777;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
       text-transform: uppercase;
     }
 
     /* Status System Box */
     .status-box {
-      background-color: rgba(15, 15, 15, 0.9);
-      border: 1px solid #222222;
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 20px;
+      background: rgba(20, 10, 12, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 22px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
 
     .status-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .status-item:last-child {
@@ -125,10 +154,10 @@
     .item-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-size: 13px;
       font-weight: 600;
-      color: #e0e0e0;
+      color: #eeeeee;
     }
 
     .svg-icon {
@@ -139,7 +168,7 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 3px rgba(255, 59, 59, 0.6));
+      filter: drop-shadow(0 0 4px rgba(255, 59, 59, 0.8));
     }
 
     .item-right {
@@ -150,13 +179,15 @@
 
     .value-text {
       font-size: 12px;
-      font-weight: 700;
-      color: #ff3b3b; /* ค่าเริ่มต้นเป็นปิด (สีแดง) */
-      transition: color 0.3s;
+      font-weight: 800;
+      color: #ff3b3b;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 6px rgba(255, 59, 59, 0.5);
     }
 
     .value-text.active {
-      color: #2ecc71; /* สถานะเปิด (สีเขียว) */
+      color: #2ecc71;
+      text-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
     }
 
     /* Custom Toggle Switch */
@@ -177,7 +208,8 @@
       position: absolute;
       cursor: pointer;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #2a2a2a;
+      background-color: #222222;
+      border: 1px solid rgba(255,255,255,0.08);
       transition: .3s;
       border-radius: 22px;
     }
@@ -187,16 +219,18 @@
       content: "";
       height: 16px;
       width: 16px;
-      left: 3px;
-      bottom: 3px;
+      left: 2px;
+      bottom: 2px;
       background-color: #ffffff;
       transition: .3s;
       border-radius: 50%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
     }
 
     input:checked + .slider {
-      background: linear-gradient(90deg, #2ecc71, #27ae60);
-      box-shadow: 0 0 10px rgba(46, 204, 113, 0.7);
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-color: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
     }
 
     input:checked + .slider:before {
@@ -208,26 +242,21 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .feature-card {
-      background-color: rgba(15, 15, 15, 0.9);
-      border: 1px solid #222222;
-      border-radius: 12px;
+      background: rgba(20, 10, 12, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
       padding: 14px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: #441111;
-      background-color: rgba(25, 25, 25, 0.9);
+      position: relative;
+      transition: all 0.3s ease;
     }
 
     .svg-icon-large {
@@ -238,34 +267,69 @@
       stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 5px rgba(255, 59, 59, 0.5));
+      filter: drop-shadow(0 0 6px rgba(255, 59, 59, 0.6));
+      transition: all 0.3s ease;
     }
 
     .feature-card span {
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.5px;
-      color: #ffffff;
+      color: #e0e0e0;
       text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    /* Active Online State สำหรับไอคอน 4 ตัวล่าง */
+    .feature-card.online {
+      border-color: rgba(46, 204, 113, 0.5);
+      background: rgba(10, 30, 20, 0.7);
+      box-shadow: 0 0 15px rgba(46, 204, 113, 0.25), inset 0 0 10px rgba(46, 204, 113, 0.15);
+    }
+
+    .feature-card.online .svg-icon-large {
+      stroke: #2ecc71;
+      filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.9));
+    }
+
+    .feature-card.online span {
+      color: #2ecc71;
+      text-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+    }
+
+    .feature-card.online::after {
+      content: 'ONLINE';
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      font-size: 7px;
+      font-weight: 900;
+      color: #2ecc71;
+      letter-spacing: 0.5px;
     }
 
     /* Action Button */
     .action-btn {
       width: 100%;
-      background-color: rgba(15, 15, 15, 0.9);
+      background: linear-gradient(180deg, rgba(30, 10, 12, 0.9) 0%, rgba(15, 5, 5, 0.9) 100%);
       border: 1px solid #ff2a2a;
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 14px;
+      padding: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: #ff2a2a;
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 1px;
+      color: #ff3b3b;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
       cursor: pointer;
-      box-shadow: inset 0 0 10px rgba(255, 42, 42, 0.15), 0 0 10px rgba(255, 42, 42, 0.2);
+      box-shadow: inset 0 0 15px rgba(255, 42, 42, 0.2), 0 0 15px rgba(255, 42, 42, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:active {
+      transform: scale(0.98);
     }
   </style>
 </head>
@@ -306,7 +370,7 @@
         <div class="item-right">
           <span class="value-text" id="status-1">ปิด</span>
           <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-1')">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-1', 'card-1')">
             <span class="slider"></span>
           </label>
         </div>
@@ -324,7 +388,7 @@
         <div class="item-right">
           <span class="value-text" id="status-2">ปิด</span>
           <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-2')">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-2', 'card-2')">
             <span class="slider"></span>
           </label>
         </div>
@@ -342,7 +406,7 @@
         <div class="item-right">
           <span class="value-text" id="status-3">ปิด</span>
           <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-3')">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-3', 'card-3')">
             <span class="slider"></span>
           </label>
         </div>
@@ -360,7 +424,7 @@
         <div class="item-right">
           <span class="value-text" id="status-4">ปิด</span>
           <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-4')">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-4', 'card-4')">
             <span class="slider"></span>
           </label>
         </div>
@@ -372,18 +436,17 @@
     <div class="section-title">FEATURES</div>
     <div class="features-grid">
       
-      <!-- Grid 1 -->
-      <div class="feature-card">
+      <!-- Card 1: ยิงตัวโดนหัว -->
+      <div class="feature-card" id="card-1">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="7"/>
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-          <rect x="10" y="10" width="4" height="4" fill="#ff3b3b"/>
         </svg>
         <span>ยิงตัวโดนหัว</span>
       </div>
 
-      <!-- Grid 2 -->
-      <div class="feature-card">
+      <!-- Card 2: ดาเมจหัว -->
+      <div class="feature-card" id="card-2">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <circle cx="12" cy="8" r="5"/>
           <path d="M7 20h10M12 13v7"/>
@@ -391,8 +454,8 @@
         <span>ดาเมจหัว</span>
       </div>
 
-      <!-- Grid 3 -->
-      <div class="feature-card">
+      <!-- Card 3: ดาเมจตัว -->
+      <div class="feature-card" id="card-3">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
@@ -400,8 +463,8 @@
         <span>ดาเมจตัว</span>
       </div>
 
-      <!-- Grid 4 -->
-      <div class="feature-card">
+      <!-- Card 4: ล็อคคอ -->
+      <div class="feature-card" id="card-4">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>
           <circle cx="12" cy="12" r="3"/>
@@ -409,23 +472,21 @@
         <span>ล็อคคอ</span>
       </div>
 
-      <!-- Grid 5 -->
+      <!-- Card 5: ESP LINE -->
       <div class="feature-card">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="8"/>
           <line x1="12" y1="4" x2="12" y2="20"/>
           <line x1="4" y1="12" x2="20" y2="12"/>
-          <line x1="6.34" y1="6.34" x2="17.66" y2="17.66"/>
         </svg>
         <span>ESP LINE</span>
       </div>
 
-      <!-- Grid 6 -->
+      <!-- Card 6: NO RECOIL -->
       <div class="feature-card">
         <svg class="svg-icon-large" viewBox="0 0 24 24">
           <path d="M2 12h14"/>
           <path d="M13 7l5 5-5 5"/>
-          <path d="M21 9v6"/>
         </svg>
         <span>NO RECOIL</span>
       </div>
@@ -434,20 +495,18 @@
 
     <!-- Bottom Action Button -->
     <button class="action-btn" onclick="runScript()">
-      <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px;">
-        <polygon points="5 3 19 12 5 21 5 3" fill="#ff2a2a"/>
+      <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px; stroke:#ff3b3b;">
+        <polygon points="5 3 19 12 5 21 5 3" fill="#ff3b3b"/>
       </svg>
       รันสคริป
     </button>
   </div>
 
   <script>
-    // สคริปต์สลับเปิดใช้งานฟังก์ชันแบบเปิดได้ครั้งละ 1 รายการ
-    function toggleFeature(currentCheckbox, statusId) {
+    function toggleFeature(currentCheckbox, statusId, cardId) {
       const checkboxes = document.querySelectorAll('.feature-toggle');
       const isChecked = currentCheckbox.checked;
 
-      // ปิดสวิตช์ทั้งหมดและรีเซ็ตข้อความสถานะ
       checkboxes.forEach(cb => {
         cb.checked = false;
       });
@@ -457,16 +516,24 @@
         el.classList.remove('active');
       });
 
-      // ถ้าสวิตช์ที่กดเปลี่ยนเป็นเปิด ให้เปิดเฉพาะอันนั้น
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.classList.remove('online');
+      });
+
       if (isChecked) {
         currentCheckbox.checked = true;
+        
         const targetStatus = document.getElementById(statusId);
         targetStatus.textContent = 'เปิด';
         targetStatus.classList.add('active');
+
+        const targetCard = document.getElementById(cardId);
+        if (targetCard) {
+          targetCard.classList.add('online');
+        }
       }
     }
 
-    // ปุ่มรันสคริป เปิดเว็บใน Safari โดยใช้แท็บเดิม ไม่เพิ่มแท็บใหม่
     function runScript() {
       window.open('https://viper-x.mrpcs.online', '_self');
     }
