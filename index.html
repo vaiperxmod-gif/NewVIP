@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaiperxPANEL</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #080808;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .panel-container {
+      width: 100%;
+      max-width: 380px;
+      background: radial-gradient(circle at center, #1c0505 0%, #090909 100%);
+      border-radius: 24px;
+      padding: 20px 16px;
+      border: 1px solid #2a0a0a;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-main {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #ffffff;
+      font-style: italic;
+    }
+
+    .title-sub {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ff2a2a;
+      letter-spacing: 1.5px;
+      margin-top: -4px;
+      font-style: italic;
+    }
+
+    .menu-btn {
+      background: #141414;
+      border: 1px solid #282828;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Logo Section */
+    .logo-container {
+      text-align: center;
+      margin: 5px 0 20px 0;
+    }
+
+    .logo-img {
+      width: 130px;
+      height: auto;
+      filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
+    }
+
+    .logo-text {
+      color: #ff2a2a;
+      font-weight: 800;
+      letter-spacing: 2px;
+      font-size: 16px;
+      margin-top: 5px;
+      text-shadow: 0 0 10px rgba(255, 42, 42, 0.6);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #888888;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    /* Status System Box */
+    .status-box {
+      background-color: rgba(15, 15, 15, 0.9);
+      border: 1px solid #222222;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .status-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
+
+    .svg-icon {
+      width: 18px;
+      height: 18px;
+      stroke: #ff3b3b;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 3px rgba(255, 59, 59, 0.6));
+    }
+
+    .item-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .value-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff3b3b; /* ค่าเริ่มต้นเป็นปิด (สีแดง) */
+      transition: color 0.3s;
+    }
+
+    .value-text.active {
+      color: #2ecc71; /* สถานะเปิด (สีเขียว) */
+    }
+
+    /* Custom Toggle Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #2a2a2a;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: linear-gradient(90deg, #2ecc71, #27ae60);
+      box-shadow: 0 0 10px rgba(46, 204, 113, 0.7);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card {
+      background-color: rgba(15, 15, 15, 0.9);
+      border: 1px solid #222222;
+      border-radius: 12px;
+      padding: 14px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: #441111;
+      background-color: rgba(25, 25, 25, 0.9);
+    }
+
+    .svg-icon-large {
+      width: 28px;
+      height: 28px;
+      stroke: #ff3b3b;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 5px rgba(255, 59, 59, 0.5));
+    }
+
+    .feature-card span {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    /* Action Button */
+    .action-btn {
+      width: 100%;
+      background-color: rgba(15, 15, 15, 0.9);
+      border: 1px solid #ff2a2a;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #ff2a2a;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: inset 0 0 10px rgba(255, 42, 42, 0.15), 0 0 10px rgba(255, 42, 42, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="panel-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="title-group">
+        <span class="title-main">VAIPERX</span>
+        <span class="title-sub">PANEL</span>
+      </div>
+      <button class="menu-btn">
+        <svg class="svg-icon" style="stroke:#fff; width:16px; height:16px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="https://i.postimg.cc/9QJ7fVdc/33522088-88D6-45F9-9EB5-E91C0D8C0978.png" alt="Logo" class="logo-img">
+      <div class="logo-text">VIP PANEL</div>
+    </div>
+
+    <!-- Status System Section -->
+    <div class="section-title">STATUS SYSTEM</div>
+    <div class="status-box">
+      
+      <!-- Item 1: ยิงตัวโดนหัว -->
+      <div class="status-item">
+        <div class="item-left">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>
+          </svg>
+          <span>ยิงตัวโดนหัว</span>
+        </div>
+        <div class="item-right">
+          <span class="value-text" id="status-1">ปิด</span>
+          <label class="switch">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-1')">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Item 2: ขยายดาเมจหัว -->
+      <div class="status-item">
+        <div class="item-left">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M12 14v6M9 17h6"/>
+          </svg>
+          <span>ขยายดาเมจหัว</span>
+        </div>
+        <div class="item-right">
+          <span class="value-text" id="status-2">ปิด</span>
+          <label class="switch">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-2')">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Item 3: ขยายดาเมจตัว -->
+      <div class="status-item">
+        <div class="item-left">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <path d="M12 2a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0V7a5 5 0 0 0-5-2z"/>
+            <path d="M6 14a6 6 0 0 0 12 0"/>
+          </svg>
+          <span>ขยายดาเมจตัว</span>
+        </div>
+        <div class="item-right">
+          <span class="value-text" id="status-3">ปิด</span>
+          <label class="switch">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-3')">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Item 4: ล็อคคอ -->
+      <div class="status-item">
+        <div class="item-left">
+          <svg class="svg-icon" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>ล็อคคอ</span>
+        </div>
+        <div class="item-right">
+          <span class="value-text" id="status-4">ปิด</span>
+          <label class="switch">
+            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-4')">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Features Section -->
+    <div class="section-title">FEATURES</div>
+    <div class="features-grid">
+      
+      <!-- Grid 1 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="7"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+          <rect x="10" y="10" width="4" height="4" fill="#ff3b3b"/>
+        </svg>
+        <span>ยิงตัวโดนหัว</span>
+      </div>
+
+      <!-- Grid 2 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="5"/>
+          <path d="M7 20h10M12 13v7"/>
+        </svg>
+        <span>ดาเมจหัว</span>
+      </div>
+
+      <!-- Grid 3 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>ดาเมจตัว</span>
+      </div>
+
+      <!-- Grid 4 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>ล็อคคอ</span>
+      </div>
+
+      <!-- Grid 5 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8"/>
+          <line x1="12" y1="4" x2="12" y2="20"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="6.34" y1="6.34" x2="17.66" y2="17.66"/>
+        </svg>
+        <span>ESP LINE</span>
+      </div>
+
+      <!-- Grid 6 -->
+      <div class="feature-card">
+        <svg class="svg-icon-large" viewBox="0 0 24 24">
+          <path d="M2 12h14"/>
+          <path d="M13 7l5 5-5 5"/>
+          <path d="M21 9v6"/>
+        </svg>
+        <span>NO RECOIL</span>
+      </div>
+
+    </div>
+
+    <!-- Bottom Action Button -->
+    <button class="action-btn" onclick="runScript()">
+      <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px;">
+        <polygon points="5 3 19 12 5 21 5 3" fill="#ff2a2a"/>
+      </svg>
+      รันสคริป
+    </button>
+  </div>
+
+  <script>
+    // สคริปต์สลับเปิดใช้งานฟังก์ชันแบบเปิดได้ครั้งละ 1 รายการ
+    function toggleFeature(currentCheckbox, statusId) {
+      const checkboxes = document.querySelectorAll('.feature-toggle');
+      const isChecked = currentCheckbox.checked;
+
+      // ปิดสวิตช์ทั้งหมดและรีเซ็ตข้อความสถานะ
+      checkboxes.forEach(cb => {
+        cb.checked = false;
+      });
+
+      document.querySelectorAll('.value-text').forEach(el => {
+        el.textContent = 'ปิด';
+        el.classList.remove('active');
+      });
+
+      // ถ้าสวิตช์ที่กดเปลี่ยนเป็นเปิด ให้เปิดเฉพาะอันนั้น
+      if (isChecked) {
+        currentCheckbox.checked = true;
+        const targetStatus = document.getElementById(statusId);
+        targetStatus.textContent = 'เปิด';
+        targetStatus.classList.add('active');
+      }
+    }
+
+    // ปุ่มรันสคริป เปิดเว็บใน Safari โดยใช้แท็บเดิม ไม่เพิ่มแท็บใหม่
+    function runScript() {
+      window.open('https://viper-x.mrpcs.online', '_self');
+    }
+  </script>
+
+</body>
+</html>
