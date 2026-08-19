@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VaiperxPANEL</title>
+  <title>VaiperxPANEL VIP</title>
 
-  <!-- กำหนดไอคอนเมื่อเพิ่มลงหน้าจอหลัก (iOS / Android Web App Icon) -->
+  <!-- Web App Icon -->
   <link rel="apple-touch-icon" href="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png">
   <link rel="icon" type="image/png" href="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png">
   <meta name="apple-mobile-web-app-title" content="VaiperxPANEL">
@@ -21,47 +21,71 @@
     }
 
     body {
-      background-color: #050505;
+      background-color: #030305;
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* Outer Glow Container */
-    .panel-container {
+    /* Background Ambient Glow */
+    body::before {
+      content: '';
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 0, 60, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+      top: 20%;
+      z-index: 0;
+      animation: pulseGlow 4s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.3); opacity: 0.9; }
+    }
+
+    /* VIP Animated Gradient Border Wrapper */
+    .vip-wrapper {
+      position: relative;
       width: 100%;
       max-width: 380px;
-      background: rgba(15, 8, 12, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 28px;
-      padding: 22px 18px;
-      border: 1px solid rgba(255, 42, 42, 0.25);
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.15), inset 0 0 15px rgba(255, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
+      border-radius: 30px;
+      padding: 2px;
+      background: linear-gradient(135deg, #ff003c, #1a0006, #ff003c, #000);
+      background-size: 300% 300%;
+      animation: animatedBorder 6s ease infinite;
+      box-shadow: 0 0 35px rgba(255, 0, 60, 0.3);
+      z-index: 1;
     }
 
-    /* Neon Top Aura Line */
-    .panel-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 15%;
-      width: 70%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #ff2a2a, transparent);
-      box-shadow: 0 0 12px #ff2a2a;
+    @keyframes animatedBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Inner Panel Container */
+    .panel-container {
+      width: 100%;
+      background: rgba(12, 10, 14, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 24px 18px;
+      position: relative;
+      overflow: hidden;
     }
 
     /* Header Section */
     .header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 12px;
     }
 
@@ -71,74 +95,110 @@
     }
 
     .title-main {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 900;
-      letter-spacing: 1.5px;
-      color: #ffffff;
+      letter-spacing: 2px;
+      background: linear-gradient(180deg, #ffffff 30%, #aaaaaa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-style: italic;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .title-sub-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .title-sub {
-      font-size: 15px;
-      font-weight: 800;
-      color: #ff2a2a;
-      letter-spacing: 2px;
-      margin-top: -4px;
+      font-size: 14px;
+      font-weight: 900;
+      color: #ff003c;
+      letter-spacing: 2.5px;
       font-style: italic;
-      text-shadow: 0 0 8px rgba(255, 42, 42, 0.6);
+      text-shadow: 0 0 10px rgba(255, 0, 60, 0.8);
+    }
+
+    .vip-tag {
+      background: linear-gradient(90deg, #ff003c, #ff5500);
+      font-size: 8px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #fff;
+      letter-spacing: 1px;
+      box-shadow: 0 0 8px rgba(255, 0, 60, 0.6);
     }
 
     .menu-btn {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
-      padding: 8px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
       cursor: pointer;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
+      transition: all 0.2s;
+    }
+
+    .menu-btn:active {
+      transform: scale(0.92);
     }
 
     /* Logo Section */
     .logo-container {
       text-align: center;
-      margin: 5px 0 20px 0;
+      margin: 10px 0 22px 0;
+      position: relative;
     }
 
     .logo-img {
-      width: 125px;
+      width: 120px;
       height: auto;
-      border-radius: 16px;
-      filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6));
+      border-radius: 20px;
+      filter: drop-shadow(0 0 20px rgba(255, 0, 60, 0.75));
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .logo-text {
-      color: #ff3b3b;
+      background: linear-gradient(90deg, #ff003c, #ff4d6d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-weight: 900;
       letter-spacing: 3px;
-      font-size: 16px;
+      font-size: 15px;
       margin-top: 8px;
-      text-shadow: 0 0 12px rgba(255, 59, 59, 0.8);
+      filter: drop-shadow(0 0 8px rgba(255, 0, 60, 0.6));
     }
 
     /* Section Headers */
     .section-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      color: #777777;
-      letter-spacing: 1px;
+      color: #666677;
+      letter-spacing: 1.5px;
       margin-bottom: 10px;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     /* Status System Box */
     .status-box {
-      background: rgba(20, 10, 12, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      padding: 14px;
+      background: linear-gradient(180deg, rgba(22, 16, 20, 0.7) 0%, rgba(12, 8, 10, 0.7) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px;
       margin-bottom: 22px;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
     }
 
     .status-item {
@@ -157,19 +217,19 @@
       align-items: center;
       gap: 12px;
       font-size: 13px;
-      font-weight: 600;
-      color: #eeeeee;
+      font-weight: 700;
+      color: #f0f0f5;
     }
 
     .svg-icon {
       width: 18px;
       height: 18px;
-      stroke: #ff3b3b;
+      stroke: #ff003c;
       fill: none;
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 4px rgba(255, 59, 59, 0.8));
+      filter: drop-shadow(0 0 5px rgba(255, 0, 60, 0.8));
     }
 
     .item-right {
@@ -179,24 +239,24 @@
     }
 
     .value-text {
-      font-size: 12px;
-      font-weight: 800;
-      color: #ff3b3b;
+      font-size: 11px;
+      font-weight: 900;
+      color: #ff3355;
       transition: all 0.3s ease;
-      text-shadow: 0 0 6px rgba(255, 59, 59, 0.5);
+      letter-spacing: 0.5px;
     }
 
     .value-text.active {
-      color: #2ecc71;
-      text-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
+      color: #00ff88;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
     }
 
-    /* Custom Toggle Switch */
+    /* Custom Switch VIP */
     .switch {
       position: relative;
       display: inline-block;
-      width: 44px;
-      height: 22px;
+      width: 46px;
+      height: 24px;
     }
 
     .switch input {
@@ -209,36 +269,36 @@
       position: absolute;
       cursor: pointer;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #222222;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: .3s;
-      border-radius: 22px;
+      background-color: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
     }
 
     .slider:before {
       position: absolute;
       content: "";
-      height: 16px;
-      width: 16px;
+      height: 18px;
+      width: 18px;
       left: 2px;
       bottom: 2px;
-      background-color: #ffffff;
-      transition: .3s;
+      background: linear-gradient(180deg, #ffffff, #cccccc);
+      transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 50%;
-      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
 
     input:checked + .slider {
-      background: linear-gradient(90deg, #10b981, #059669);
-      border-color: #10b981;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+      background: linear-gradient(90deg, #00b862, #00ff88);
+      border-color: #00ff88;
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
     }
 
     input:checked + .slider:before {
       transform: translateX(22px);
     }
 
-    /* Features Grid */
+    /* Features Grid VIP */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -247,9 +307,9 @@
     }
 
     .feature-card {
-      background: rgba(20, 10, 12, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(25, 18, 22, 0.6) 0%, rgba(12, 8, 10, 0.8) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
       padding: 14px 6px;
       display: flex;
       flex-direction: column;
@@ -257,45 +317,50 @@
       justify-content: center;
       gap: 8px;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
     }
 
     .svg-icon-large {
-      width: 28px;
-      height: 28px;
-      stroke: #ff3b3b;
+      width: 26px;
+      height: 26px;
+      stroke: #ff003c;
       fill: none;
-      stroke-width: 1.8;
+      stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: drop-shadow(0 0 6px rgba(255, 59, 59, 0.6));
+      filter: drop-shadow(0 0 6px rgba(255, 0, 60, 0.6));
       transition: all 0.3s ease;
+      z-index: 2;
     }
 
     .feature-card span {
       font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.5px;
-      color: #e0e0e0;
+      color: #cccccc;
       text-align: center;
       transition: all 0.3s ease;
+      z-index: 2;
     }
 
-    /* Active Online State สำหรับไอคอน 4 ตัวล่าง */
+    /* 🔥 Active Online VIP State + เอฟเฟกต์ออร่าวิ่งรอบไอคอน */
     .feature-card.online {
-      border-color: rgba(46, 204, 113, 0.5);
-      background: rgba(10, 30, 20, 0.7);
-      box-shadow: 0 0 15px rgba(46, 204, 113, 0.25), inset 0 0 10px rgba(46, 204, 113, 0.15);
+      border-color: transparent;
+      background: linear-gradient(180deg, rgba(0, 35, 18, 0.85) 0%, rgba(5, 18, 10, 0.95) 100%);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 12px rgba(0, 255, 136, 0.2);
+      transform: translateY(-2px);
     }
 
-    .feature-card.online .svg-icon-large {
-      stroke: #2ecc71;
-      filter: drop-shadow(0 0 10px rgba(46, 204, 113, 0.9));
-    }
-
-    .feature-card.online span {
-      color: #2ecc71;
-      text-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+    /* เส้นลำแสงหมุนวิ่งวนรอบไอคอน */
+    .feature-card.online::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: conic-gradient(transparent, transparent, transparent, #00ff88);
+      animation: rotateAura 2s linear infinite;
+      z-index: 0;
     }
 
     .feature-card.online::after {
@@ -305,248 +370,424 @@
       right: 6px;
       font-size: 7px;
       font-weight: 900;
-      color: #2ecc71;
+      color: #00ff88;
       letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    /* หน้ากากกรอบด้านในเพื่อตัดขอบเส้นแสง */
+    .feature-card-inner-mask {
+      position: absolute;
+      inset: 1px;
+      background: linear-gradient(180deg, rgba(3, 20, 10, 0.95) 0%, rgba(2, 10, 5, 0.98) 100%);
+      border-radius: 15px;
+      z-index: 1;
+      display: none;
+    }
+
+    .feature-card.online .feature-card-inner-mask {
+      display: block;
+    }
+
+    @keyframes rotateAura {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .feature-card.online .svg-icon-large {
+      stroke: #00ff88;
+      filter: drop-shadow(0 0 12px rgba(0, 255, 136, 0.9));
+      animation: iconPulse 1.5s infinite alternate;
+    }
+
+    @keyframes iconPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+
+    .feature-card.online span {
+      color: #00ff88;
+      text-shadow: 0 0 8px rgba(0, 255, 136, 0.8);
     }
 
     /* Button Group Container */
     .button-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     /* Tutorial Video Button */
     .tutorial-btn {
       width: 100%;
-      background: linear-gradient(180deg, rgba(35, 25, 10, 0.9) 0%, rgba(20, 12, 5, 0.9) 100%);
-      border: 1px solid #ff9900;
-      border-radius: 14px;
-      padding: 13px;
+      background: linear-gradient(180deg, rgba(40, 28, 10, 0.8) 0%, rgba(20, 12, 4, 0.9) 100%);
+      border: 1px solid #ffaa00;
+      border-radius: 16px;
+      padding: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: #ffaa00;
+      color: #ffbb00;
       font-size: 14px;
       font-weight: 800;
       letter-spacing: 1px;
       cursor: pointer;
-      box-shadow: inset 0 0 15px rgba(255, 153, 0, 0.15), 0 0 12px rgba(255, 153, 0, 0.25);
-      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 170, 0, 0.2);
+      transition: all 0.2s ease;
     }
 
     .tutorial-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
-    /* Action Button */
+    /* VIP Action Button */
     .action-btn {
       width: 100%;
-      background: linear-gradient(180deg, rgba(30, 10, 12, 0.9) 0%, rgba(15, 5, 5, 0.9) 100%);
-      border: 1px solid #ff2a2a;
-      border-radius: 14px;
-      padding: 15px;
+      background: linear-gradient(180deg, #ff003c 0%, #990024 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      color: #ff3b3b;
+      color: #ffffff;
       font-size: 15px;
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       cursor: pointer;
-      box-shadow: inset 0 0 15px rgba(255, 42, 42, 0.2), 0 0 15px rgba(255, 42, 42, 0.3);
-      transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(255, 0, 60, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      transition: all 0.2s ease;
     }
 
     .action-btn:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
+      box-shadow: 0 0 15px rgba(255, 0, 60, 0.8);
+    }
+
+    /* ==========================================
+       POPUP OVERLAY VIP STYLES
+       ========================================== */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    .popup-card {
+      width: 100%;
+      max-width: 320px;
+      background: linear-gradient(180deg, #180a0d 0%, #080304 100%);
+      border: 1px solid rgba(255, 0, 60, 0.5);
+      border-radius: 24px;
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(255, 0, 60, 0.35);
+      animation: scaleUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .popup-img-container {
+      width: 100%;
+      height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .popup-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .popup-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .popup-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .popup-btn-no {
+      background: rgba(255, 0, 60, 0.15);
+      border: 1px solid #ff003c;
+      color: #ff4d6d;
+    }
+
+    .popup-btn-no:active {
+      transform: scale(0.95);
+    }
+
+    .popup-btn-yes {
+      background: linear-gradient(180deg, #00ff88 0%, #00b862 100%);
+      border: none;
+      color: #000000;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    }
+
+    .popup-btn-yes:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleUp {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <div class="panel-container">
-    <!-- Header -->
-    <div class="header">
-      <div class="title-group">
-        <span class="title-main">VAIPERX</span>
-        <span class="title-sub">PANEL</span>
+  <!-- POP-UP OVERLAY -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-card">
+      <div class="popup-img-container">
+        <!-- อัปเดตรูปปก Pop-up ลิงก์ใหม่ -->
+        <img src="https://i.postimg.cc/ydY1pnst/9FC589B7-D3A4-4750-86CD-83F4B972F2AC.png" alt="Ad Banner">
       </div>
-      <button class="menu-btn">
-        <svg class="svg-icon" style="stroke:#fff; width:16px; height:16px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-    </div>
-
-    <!-- Logo -->
-    <div class="logo-container">
-      <img src="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png" alt="Logo" class="logo-img">
-      <div class="logo-text">VIP PANEL</div>
-    </div>
-
-    <!-- Status System Section -->
-    <div class="section-title">STATUS SYSTEM</div>
-    <div class="status-box">
       
-      <!-- Item 1: ยิงตัวโดนหัว -->
-      <div class="status-item">
-        <div class="item-left">
-          <svg class="svg-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>
+      <div class="popup-title">คุณได้ดูคลิปสอนลงหรือยัง?</div>
+      
+      <div class="popup-buttons">
+        <button class="popup-btn popup-btn-no" onclick="goToTutorialLink()">ยังไม่ได้ดู</button>
+        <button class="popup-btn popup-btn-yes" onclick="closePopup()">ดูแล้ว</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN VIP WRAPPER -->
+  <div class="vip-wrapper">
+    <div class="panel-container">
+      
+      <!-- Header -->
+      <div class="header">
+        <div class="title-group">
+          <span class="title-main">VAIPERX</span>
+          <div class="title-sub-badge">
+            <span class="title-sub">PANEL</span>
+            <span class="vip-tag">PRO VIP</span>
+          </div>
+        </div>
+        <button class="menu-btn">
+          <svg class="svg-icon" style="stroke:#fff; width:16px; height:16px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Logo -->
+      <div class="logo-container">
+        <img src="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png" alt="Logo" class="logo-img">
+        <div class="logo-text">VIP SYSTEM ACTIVE</div>
+      </div>
+
+      <!-- Status System Section -->
+      <div class="section-title">STATUS SYSTEM</div>
+      <div class="status-box">
+        
+        <!-- Item 1: ยิงตัวโดนหัว -->
+        <div class="status-item">
+          <div class="item-left">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>
+            </svg>
+            <span>ยิงตัวโดนหัว</span>
+          </div>
+          <div class="item-right">
+            <span class="value-text" id="status-1">OFFLINE</span>
+            <label class="switch">
+              <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-1', 'card-1')">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Item 2: ขยายดาเมจหัว -->
+        <div class="status-item">
+          <div class="item-left">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M12 14v6M9 17h6"/>
+            </svg>
+            <span>ขยายดาเมจหัว</span>
+          </div>
+          <div class="item-right">
+            <span class="value-text" id="status-2">OFFLINE</span>
+            <label class="switch">
+              <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-2', 'card-2')">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Item 3: ขยายดาเมจตัว -->
+        <div class="status-item">
+          <div class="item-left">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <path d="M12 2a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0V7a5 5 0 0 0-5-2z"/>
+              <path d="M6 14a6 6 0 0 0 12 0"/>
+            </svg>
+            <span>ขยายดาเมจตัว</span>
+          </div>
+          <div class="item-right">
+            <span class="value-text" id="status-3">OFFLINE</span>
+            <label class="switch">
+              <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-3', 'card-3')">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Item 4: ล็อคคอ -->
+        <div class="status-item">
+          <div class="item-left">
+            <svg class="svg-icon" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>ล็อคคอ</span>
+          </div>
+          <div class="item-right">
+            <span class="value-text" id="status-4">OFFLINE</span>
+            <label class="switch">
+              <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-4', 'card-4')">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Features Section -->
+      <div class="section-title">FEATURES</div>
+      <div class="features-grid">
+        
+        <!-- Card 1 -->
+        <div class="feature-card" id="card-1">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="7"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
           </svg>
           <span>ยิงตัวโดนหัว</span>
         </div>
-        <div class="item-right">
-          <span class="value-text" id="status-1">ปิด</span>
-          <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-1', 'card-1')">
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
 
-      <!-- Item 2: ขยายดาเมจหัว -->
-      <div class="status-item">
-        <div class="item-left">
-          <svg class="svg-icon" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M12 14v6M9 17h6"/>
+        <!-- Card 2 -->
+        <div class="feature-card" id="card-2">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M7 20h10M12 13v7"/>
           </svg>
-          <span>ขยายดาเมจหัว</span>
+          <span>ดาเมจหัว</span>
         </div>
-        <div class="item-right">
-          <span class="value-text" id="status-2">ปิด</span>
-          <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-2', 'card-2')">
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
 
-      <!-- Item 3: ขยายดาเมจตัว -->
-      <div class="status-item">
-        <div class="item-left">
-          <svg class="svg-icon" viewBox="0 0 24 24">
-            <path d="M12 2a5 5 0 0 0-5 5v3a5 5 0 0 0 10 0V7a5 5 0 0 0-5-2z"/>
-            <path d="M6 14a6 6 0 0 0 12 0"/>
+        <!-- Card 3 -->
+        <div class="feature-card" id="card-3">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
           </svg>
-          <span>ขยายดาเมจตัว</span>
+          <span>ดาเมจตัว</span>
         </div>
-        <div class="item-right">
-          <span class="value-text" id="status-3">ปิด</span>
-          <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-3', 'card-3')">
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
 
-      <!-- Item 4: ล็อคคอ -->
-      <div class="status-item">
-        <div class="item-left">
-          <svg class="svg-icon" viewBox="0 0 24 24">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <!-- Card 4 -->
+        <div class="feature-card" id="card-4">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>
+            <circle cx="12" cy="12" r="3"/>
           </svg>
           <span>ล็อคคอ</span>
         </div>
-        <div class="item-right">
-          <span class="value-text" id="status-4">ปิด</span>
-          <label class="switch">
-            <input type="checkbox" class="feature-toggle" onclick="toggleFeature(this, 'status-4', 'card-4')">
-            <span class="slider"></span>
-          </label>
+
+        <!-- Card 5 -->
+        <div class="feature-card">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8"/>
+            <line x1="12" y1="4" x2="12" y2="20"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+          </svg>
+          <span>ESP LINE</span>
         </div>
+
+        <!-- Card 6 -->
+        <div class="feature-card">
+          <div class="feature-card-inner-mask"></div>
+          <svg class="svg-icon-large" viewBox="0 0 24 24">
+            <path d="M2 12h14"/>
+            <path d="M13 7l5 5-5 5"/>
+          </svg>
+          <span>NO RECOIL</span>
+        </div>
+
       </div>
 
-    </div>
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button class="tutorial-btn" onclick="openTutorial()">
+          <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px; height:18px; stroke:#ffbb00;">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+          ดูคลิปสอนใช้งาน
+        </button>
 
-    <!-- Features Section -->
-    <div class="section-title">FEATURES</div>
-    <div class="features-grid">
-      
-      <!-- Card 1: ยิงตัวโดนหัว -->
-      <div class="feature-card" id="card-1">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="7"/>
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-        </svg>
-        <span>ยิงตัวโดนหัว</span>
+        <button class="action-btn" onclick="runScript()">
+          <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px; stroke:#ffffff;">
+            <polygon points="5 3 19 12 5 21 5 3" fill="#ffffff"/>
+          </svg>
+          EXECUTE SCRIPT
+        </button>
       </div>
 
-      <!-- Card 2: ดาเมจหัว -->
-      <div class="feature-card" id="card-2">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="5"/>
-          <path d="M7 20h10M12 13v7"/>
-        </svg>
-        <span>ดาเมจหัว</span>
-      </div>
-
-      <!-- Card 3: ดาเมจตัว -->
-      <div class="feature-card" id="card-3">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span>ดาเมจตัว</span>
-      </div>
-
-      <!-- Card 4: ล็อคคอ -->
-      <div class="feature-card" id="card-4">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
-        <span>ล็อคคอ</span>
-      </div>
-
-      <!-- Card 5: ESP LINE -->
-      <div class="feature-card">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="8"/>
-          <line x1="12" y1="4" x2="12" y2="20"/>
-          <line x1="4" y1="12" x2="20" y2="12"/>
-        </svg>
-        <span>ESP LINE</span>
-      </div>
-
-      <!-- Card 6: NO RECOIL -->
-      <div class="feature-card">
-        <svg class="svg-icon-large" viewBox="0 0 24 24">
-          <path d="M2 12h14"/>
-          <path d="M13 7l5 5-5 5"/>
-        </svg>
-        <span>NO RECOIL</span>
-      </div>
-
-    </div>
-
-    <!-- Bottom Action Buttons Group -->
-    <div class="button-group">
-      <!-- ปุ่มดูคลิปสอนใช้งาน -->
-      <button class="tutorial-btn" onclick="openTutorial()">
-        <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px; height:18px; stroke:#ffaa00;">
-          <polygon points="23 7 16 12 23 17 23 7"/>
-          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-        </svg>
-        ดูคลิปสอนใช้งาน
-      </button>
-
-      <!-- ปุ่มรันสคริปต์ -->
-      <button class="action-btn" onclick="runScript()">
-        <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px; stroke:#ff3b3b;">
-          <polygon points="5 3 19 12 5 21 5 3" fill="#ff3b3b"/>
-        </svg>
-        รันสคริป
-      </button>
     </div>
   </div>
 
   <script>
+    function closePopup() {
+      document.getElementById('popupOverlay').style.display = 'none';
+    }
+
+    function goToTutorialLink() {
+      window.open('https://drive.google.com/file/d/1tVQRxBsDQqicCBmzXrFtmLEqjhzTju3G/view?usp=drivesdk', '_blank');
+    }
+
     function toggleFeature(currentCheckbox, statusId, cardId) {
       const checkboxes = document.querySelectorAll('.feature-toggle');
       const isChecked = currentCheckbox.checked;
@@ -556,7 +797,7 @@
       });
 
       document.querySelectorAll('.value-text').forEach(el => {
-        el.textContent = 'ปิด';
+        el.textContent = 'OFFLINE';
         el.classList.remove('active');
       });
 
@@ -568,7 +809,7 @@
         currentCheckbox.checked = true;
         
         const targetStatus = document.getElementById(statusId);
-        targetStatus.textContent = 'เปิด';
+        targetStatus.textContent = 'ONLINE';
         targetStatus.classList.add('active');
 
         const targetCard = document.getElementById(cardId);
