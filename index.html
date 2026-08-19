@@ -108,6 +108,7 @@
     .logo-img {
       width: 125px;
       height: auto;
+      border-radius: 16px;
       filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.6));
     }
 
@@ -116,7 +117,7 @@
       font-weight: 900;
       letter-spacing: 3px;
       font-size: 16px;
-      margin-top: 6px;
+      margin-top: 8px;
       text-shadow: 0 0 12px rgba(255, 59, 59, 0.8);
     }
 
@@ -308,6 +309,37 @@
       letter-spacing: 0.5px;
     }
 
+    /* Button Group Container */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Tutorial Video Button */
+    .tutorial-btn {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(35, 25, 10, 0.9) 0%, rgba(20, 12, 5, 0.9) 100%);
+      border: 1px solid #ff9900;
+      border-radius: 14px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #ffaa00;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: inset 0 0 15px rgba(255, 153, 0, 0.15), 0 0 12px rgba(255, 153, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .tutorial-btn:active {
+      transform: scale(0.98);
+    }
+
     /* Action Button */
     .action-btn {
       width: 100%;
@@ -349,7 +381,7 @@
 
     <!-- Logo -->
     <div class="logo-container">
-      <img src="https://i.postimg.cc/9QJ7fVdc/33522088-88D6-45F9-9EB5-E91C0D8C0978.png" alt="Logo" class="logo-img">
+      <img src="https://i.postimg.cc/pXKtV2nr/A9D672B5-B8F4-4DB1-A712-BB7B980B32C1.png" alt="Logo" class="logo-img">
       <div class="logo-text">VIP PANEL</div>
     </div>
 
@@ -493,13 +525,25 @@
 
     </div>
 
-    <!-- Bottom Action Button -->
-    <button class="action-btn" onclick="runScript()">
-      <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px; stroke:#ff3b3b;">
-        <polygon points="5 3 19 12 5 21 5 3" fill="#ff3b3b"/>
-      </svg>
-      รันสคริป
-    </button>
+    <!-- Bottom Action Buttons Group -->
+    <div class="button-group">
+      <!-- ปุ่มดูคลิปสอนใช้งาน -->
+      <button class="tutorial-btn" onclick="openTutorial()">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px; height:18px; stroke:#ffaa00;">
+          <polygon points="23 7 16 12 23 17 23 7"/>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+        ดูคลิปสอนใช้งาน
+      </button>
+
+      <!-- ปุ่มรันสคริปต์ -->
+      <button class="action-btn" onclick="runScript()">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px; height:20px; stroke:#ff3b3b;">
+          <polygon points="5 3 19 12 5 21 5 3" fill="#ff3b3b"/>
+        </svg>
+        รันสคริป
+      </button>
+    </div>
   </div>
 
   <script>
@@ -532,6 +576,10 @@
           targetCard.classList.add('online');
         }
       }
+    }
+
+    function openTutorial() {
+      window.open('https://drive.google.com/file/d/1hTwyCv9JmFAK7q6RGlC1VGUFRbxQI8ry/view?usp=drivesdk', '_blank');
     }
 
     function runScript() {
